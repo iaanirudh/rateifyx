@@ -1,0 +1,140 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --rx-bg:      #080808;
+  --rx-surface: #0f0f0f;
+  --rx-border:  #1c1c1c;
+  --rx-text:    #ede8dc;
+  --rx-text-2:  #c9c3b6;
+  --rx-text-3:  #9a9488;
+  --rx-text-4:  #6f6a62;
+  --rx-muted:   #9a9488;
+  --rx-amber:   #f59e0b;
+  --rx-green:   #22c55e;
+  --rx-red:     #ef4444;
+  --rx-btn-radius: 8px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--rx-bg);
+  color: var(--rx-text);
+  font-family: 'IBM Plex Mono', monospace;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection { background: rgba(245,158,11,0.3); color: var(--rx-text); }
+
+/* Hide scrollbar, keep scroll behavior */
+html { scrollbar-width: none; }
+html::-webkit-scrollbar { display: none; }
+*::-webkit-scrollbar { display: none; }
+* { scrollbar-width: none; }
+
+/* Noise texture overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.35;
+}
+
+@layer utilities {
+  .rx-border  { border: 1px solid var(--rx-border); }
+  .rx-surface { background: var(--rx-surface); }
+  .rx-text    { color: var(--rx-text); }
+  .rx-muted   { color: var(--rx-muted); }
+  .rx-amber   { color: var(--rx-amber); }
+
+  .rx-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 24px;
+    background: var(--rx-amber);
+    color: #080808;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border: none;
+    border-radius: var(--rx-btn-radius);
+    cursor: pointer;
+    transition: background 0.15s, transform 0.1s;
+    text-decoration: none;
+  }
+  .rx-btn:hover  { background: #fbbf24; transform: translateY(-1px); }
+  .rx-btn:active { transform: translateY(0); }
+
+  .rx-btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 22px;
+    background: transparent;
+    color: var(--rx-text);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border: 1px solid var(--rx-border);
+    border-radius: var(--rx-btn-radius);
+    cursor: pointer;
+    transition: border-color 0.15s, color 0.15s;
+    text-decoration: none;
+  }
+  .rx-btn-ghost:hover { border-color: var(--rx-amber); color: var(--rx-amber); }
+
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--rx-muted);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--rx-border);
+  }
+
+  .grid-bg {
+    background-image:
+      linear-gradient(rgba(245,158,11,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(245,158,11,0.04) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  .glow-amber {
+    box-shadow: 0 0 40px rgba(245,158,11,0.12), 0 0 80px rgba(245,158,11,0.06);
+  }
+
+  .tag {
+    display: inline-block;
+    padding: 3px 10px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border-radius: 2px;
+  }
+  .tag-amber { background: rgba(245,158,11,0.12); color: var(--rx-amber); border: 1px solid rgba(245,158,11,0.25); }
+  .tag-green { background: rgba(34,197,94,0.12);  color: var(--rx-green);  border: 1px solid rgba(34,197,94,0.25); }
+  .tag-gray  { background: rgba(255,255,255,0.05); color: #666; border: 1px solid var(--rx-border); }
+}
